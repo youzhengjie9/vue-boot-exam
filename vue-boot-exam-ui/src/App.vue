@@ -1,28 +1,35 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+
+    <el-button v-if="$route.path==='/'" v-show="show" id="e1" type="primary" v-model="loading"
+               :loading="loading" @click="func1()">进入系统</el-button>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return{
+      loading:false,
+      show:true
+    }
+  },
+  methods:{
+    func1:function(){
+      var nthis=this; //保存this对象
+      nthis.loading = true;
+
+      setTimeout(function () {
+         nthis.loading = false;
+         nthis.show = false;
+         nthis.$router.push('/exam')
+      },800);
+
+    }
   }
 }
-</script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+</script>
