@@ -20,7 +20,6 @@ public class ExamApplication {
 
   public static void main(String[] args) {
 
-      TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
       ConfigurableApplicationContext applicationContext =
               SpringApplication.run(ExamApplication.class, args);
 

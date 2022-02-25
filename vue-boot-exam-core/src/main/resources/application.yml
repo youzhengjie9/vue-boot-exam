@@ -6,3 +6,5 @@ spring:
     password:
     host: localhost
     database: 5
+
+

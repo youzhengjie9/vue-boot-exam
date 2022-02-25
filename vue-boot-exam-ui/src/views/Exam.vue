@@ -9,7 +9,7 @@
       </el-header>
       <el-main>
         <h3>抽取的题目如下：</h3>
-        <h3 id="tm">666888</h3>
+        <h3 id="tm">{{question}}</h3>
       </el-main>
     </el-container>
 
@@ -20,20 +20,43 @@
 <script>
     export default {
         name: "Exam",
+        data(){
+          return{
+            question:'请点击抽取题目！'
+          }
+        },
         methods: {
           init() {
-            this.$message({
-              message: '初始化题库成功',
-              type: 'success',
-              duration:2200 //关闭时间
-            });
+            var nthis=this;
+            this.axios
+              .get('http://localhost:5123/exam/init')
+              .then(function (response) {
+                nthis.$message({
+                  message: response.data,
+                  type: 'success',
+                  duration:2200 //关闭时间
+                });
+              }).catch(function (error){
+              nthis.$message({
+                message: "初始化题库失败",
+                type: 'error',
+                duration:2200 //关闭时间
+              });
+            })
           },
           drawQuestion:function () {
+            var nthis=this;
             this.axios
               .get('http://localhost:5123/exam/getQuestion')
               .then(function (response) {
-                console.log(response)
-              })
+                nthis.question=response.data;
+              }).catch(function (error){
+              nthis.$message({
+                message: "抽取题目失败",
+                type: 'error',
+                duration:2200 //关闭时间
+              });
+            })
           }
       }
     }
